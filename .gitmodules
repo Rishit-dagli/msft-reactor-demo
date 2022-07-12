@@ -1,0 +1,3 @@
+[submodule "tract"]
+	path = tract
+	url = https://github.com/sonos/tract
