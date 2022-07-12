@@ -1,6 +1,6 @@
 # Microsft Reactor Demo
 
-## Demo 1
+## Demo 1: Run a simple Rust app locally with Wasm
 
 1. Install `wasmtime`
 
@@ -27,6 +27,36 @@ cd hello-world
 cargo build --target wasm32-wasi --release
 wasmtime target/wasm32-wasi/release/hello-world.wasm 
 cd ..
+```
+
+## Demo 2: Run a Rust app locally
+
+1. Install the `wasm32-wasi` target
+
+```sh
+rustup target add wasm32-wasi
+```
+
+2. Build the example
+
+```sh
+cd tensorflow-mobilenet-v2
+cargo build --target wasm32-wasi --release
+```
+
+3. Run the example
+
+```sh
+wasmtime target/wasm32-wasi/release/example-tensorflow-mobilenet-v2.wasm --dir=.
+```
+
+4. AOT Compilation
+
+Let's now do an inference but this time with AOT compilation. Notice closely the time differences!
+
+```sh
+wasmtime compile target/wasm32-wasi/release/example-tensorflow-mobilenet-v2.wasm
+wasmtime example-tensorflow-mobilenet-v2.cwasm --allow-precompiled --dir=.
 ```
 
 ## Demo 2
