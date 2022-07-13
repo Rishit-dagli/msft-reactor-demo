@@ -1,9 +1,9 @@
 [package]
 name = "example-tensorflow-mobilenet-v2"
 version = "0.1.0"
-authors = ["Mathieu Poumeyrol <kali@zoy.org>"]
+authors = ["Rishit Dagli <rishit.dagli@gmail.com>", "Adapted from the work of Mathieu Poumeyrol <kali@zoy.org>"]
 license = "MIT/Apache-2.0"
-edition = "2018"
+edition = "2021"
 
 [dependencies]
 image = { default-features = false, features = ["jpeg"], version="0.24.1" }

@@ -150,7 +150,7 @@ Update the `values.yaml` according to the internal IP of the load balancer which
 ```sh
 helm repo add bitnami https://charts.bitnami.com/bitnami
 helm repo update
-helm install hello-wasi bitnami/nginx -f wasi-depoyment/values.yaml
+helm install hello-wasi bitnami/nginx -f wasi-deployment/values.yaml
 kubectl get svc
 ```
 
@@ -158,4 +158,55 @@ kubectl get svc
 
 ```sh
 curl EXTERNAL_IP/hello
+```
+
+## Demo 5: Run a Rust app with WASM in AKS
+
+1. Install `wasm-to-oci`
+
+```sh
+wget https://github.com/engineerd/wasm-to-oci/releases/download/v0.1.2/linux-amd64-wasm-to-oci
+mv linux-amd64-wasm-to-oci wasm-to-oci
+chmod +x wasm-to-oci
+sudo cp wasm-to-oci /usr/local/bin
+```
+
+2. Create a new container registry
+
+```sh
+az acr create -n reactordemo -g wasmRG --sku Standard
+az acr login -n reactordemo
+az acr update --name reactordemo --anonymous-pull-enabled
+```
+
+3. Build the project:
+
+```sh
+cd aks-demo
+cargo build --target wasm32-wasi --release
+```
+
+4. Push the WASM image to the container registry
+
+```sh
+wasm-to-oci push target/wasm32-wasi/release/wasi_example_main.wasm reactordemo.azurecr.io/reactordemo:1.0.0
+```
+
+Verify the push:
+
+```sh
+az acr repository list -n reactordemo
+az acr repository show -n reactordemo --image reactordemo:1.0.0
+```
+
+5. Deploy the pod
+
+```sh
+kubectl apply -f pod.yaml
+```
+
+6. Test the deployment
+
+```sh
+curl EXTERNAL_IP
 ```

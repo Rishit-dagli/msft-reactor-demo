@@ -1,0 +1,12 @@
+[package]
+name = "aks-demo"
+version = "0.1.0"
+edition = "2021"
+
+[[bin]]
+name = "wasi_example_main"
+path = "src/main.rs"
+
+[dependencies]
+rand = "0.7.3"
+wasm-bindgen = "=0.2.61"
