@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: krustlet-tutorial
+spec:
+  containers:
+    - name: krustlet-tutorial
+      image: reactordemo.azurecr.io/reactordemo:1.0.0
+  imagePullSecrets:
+    - name: <acr-secret>
+  tolerations:
+    - key: "kubernetes.io/arch"
+      operator: "Equal"
+      value: "wasm32-wasi"
+      effect: "NoExecute"
+    - key: "kubernetes.io/arch"
+      operator: "Equal"
+      value: "wasm32-wasi"
+      effect: "NoSchedule"

@@ -25,7 +25,7 @@ spec:
     - image: webassembly.azurecr.io/krustlet-wagi-demo-hello:v1.0.0
       imagePullPolicy: Always
       name: krustlet-wagi-demo-hello
-    - image: webassembly.azurecr.io/krustlet-wagi-demo-index:v1.0.0
+    - image: reactordemo.azurecr.io/reactordemo:1.0.0
       imagePullPolicy: Always
       name: krustlet-wagi-demo-index
     - image: webassembly.azurecr.io/krustlet-wagi-demo-error:v1.0.0
